@@ -56,9 +56,16 @@ public class PlayfairCipher {
     // TODO: Implement this method to find the position of a character in the key matrix
     private int[] findPosition(char c) {
         // Students should complete this part
+        for (int i = 0; i < 5; i++) { 
+            for (int j = 0; j < 5; j++) {
+                if(keyMatrix[i][j] == c){
+                    int[] pos = {i,j};
+                    return pos;
+                }
+            }
+        }
         return null;
     }
-
     // Encrypts the given plaintext using the Playfair cipher algorithm
     public String encrypt(String text) {
         text = prepareText(text);
@@ -87,6 +94,26 @@ public class PlayfairCipher {
     // TODO: Implement this method to decrypt the ciphertext back to plaintext
     public String decrypt(String text) {
         // Students should complete this part
-        return null;
+        text = prepareText(text);
+        StringBuilder decryptedText = new StringBuilder();
+
+        for (int i = 0; i < text.length(); i += 2) {
+            int[] pos1 = findPosition(text.charAt(i));
+            int[] pos2 = findPosition(text.charAt(i + 1));
+
+            if (pos1 == null || pos2 == null) continue; // Safety check
+
+            if (pos1[0] == pos2[0]) {  // Same row
+                decryptedText.append(keyMatrix[pos1[0]][(pos1[1] +4) % 5]);
+                decryptedText.append(keyMatrix[pos2[0]][(pos2[1] +4) % 5]);
+            } else if (pos1[1] == pos2[1]) {  // Same column
+                decryptedText.append(keyMatrix[(pos1[0] +4) % 5][pos1[1]]);
+                decryptedText.append(keyMatrix[(pos2[0] +4) % 5][pos2[1]]);
+            } else {  // Rectangle swap
+                decryptedText.append(keyMatrix[pos1[0]][pos2[1]]);
+                decryptedText.append(keyMatrix[pos2[0]][pos1[1]]);
+            }
+        }
+        return decryptedText.toString().replace("X", "");
     }
 }
