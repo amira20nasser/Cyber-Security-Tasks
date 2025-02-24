@@ -114,6 +114,27 @@ public class PlayfairCipher {
                 decryptedText.append(keyMatrix[pos2[0]][pos1[1]]);
             }
         }
-        return decryptedText.toString().replace("X", "");
+        return removeX(decryptedText.toString());
+        // return decryptedText.toString().replace("X", "");
+    }
+
+    private String removeX(String text){
+        StringBuilder cleanedText = new StringBuilder();
+        int textLength = text.length();
+        cleanedText.append(text.charAt(0));
+
+        for(int i=1;i<=textLength-2;i+=1){
+            char currentChar = text.charAt(i);
+            
+            if(currentChar=='X' && text.charAt(i-1)==text.charAt(i+1))
+                continue;
+            cleanedText.append(currentChar);
+        }
+        if(text.charAt(textLength-1)!='X')
+            cleanedText.append(text.charAt(textLength-1));
+        
+        System.out.println("Cleaned Text");
+        System.out.println(cleanedText.toString());
+        return cleanedText.toString();
     }
 }
