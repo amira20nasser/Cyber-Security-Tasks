@@ -12,7 +12,7 @@ public class MonoalphabeticCipher {
 
         // Students should complete this loop
         for (int i = 0; i < alphabet.length(); i++) {
-            // encryptionMap // Hint: Map plaintext letter to cipher letter
+            encryptionMap.put(alphabet.charAt(i), key.charAt(i));
         }
         return encryptionMap;
     }
@@ -25,7 +25,7 @@ public class MonoalphabeticCipher {
 
         // Students should complete this loop
         for (int i = 0; i < alphabet.length(); i++) {
-            // decryptionMap // Hint: Reverse mapping
+            decryptionMap.put(key.charAt(i), alphabet.charAt(i));
         }
         return decryptionMap;
     }
@@ -36,8 +36,13 @@ public class MonoalphabeticCipher {
         StringBuilder encryptedText = new StringBuilder();
 
         for (char c : plaintext.toCharArray()) {
-            // TODO: Use the encryption map to convert each letter
-        }
+            if(encryptionMap.containsKey(c)){
+                encryptedText.append(encryptionMap.get(c));
+            }
+            else{
+                encryptedText.append(c);
+            }
+        }       
         return encryptedText.toString();
     }
 
@@ -47,8 +52,12 @@ public class MonoalphabeticCipher {
         StringBuilder decryptedText = new StringBuilder();
 
         for (char c : ciphertext.toCharArray()) {
-            // TODO: Use the decryption map to convert each letter
-
+            if(decryptionMap.containsKey(c)){
+                decryptedText.append(decryptionMap.get(c));
+            }
+            else{
+                decryptedText.append(c);
+            }
         }
         return decryptedText.toString();
     }
