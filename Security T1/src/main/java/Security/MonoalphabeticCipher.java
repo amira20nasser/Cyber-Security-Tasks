@@ -13,7 +13,15 @@ public class MonoalphabeticCipher {
         // Students should complete this loop
         for (int i = 0; i < alphabet.length(); i++) {
             // encryptionMap // Hint: Map plaintext letter to cipher letter
+            Character currentChar = alphabet.charAt(i);
+            int indexOfCharacter = key.charAt(i) - 'A';
+            // System.out.print("Mono indexOfCharacter");
+            // System.out.println(key.charAt(i));
+            // System.out.println(indexOfCharacter);
+            Character mappedCharater = (char) (((i + indexOfCharacter)%26)+'A');
+            encryptionMap.put(currentChar, mappedCharater);
         }
+        // System.out.println(encryptionMap);
         return encryptionMap;
     }
 
@@ -26,6 +34,7 @@ public class MonoalphabeticCipher {
         // Students should complete this loop
         for (int i = 0; i < alphabet.length(); i++) {
             // decryptionMap // Hint: Reverse mapping
+
         }
         return decryptionMap;
     }
