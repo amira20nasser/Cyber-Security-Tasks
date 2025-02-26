@@ -64,6 +64,7 @@ public class MonoalphabeticCipher {
 
     public static String findKey(String plaintext, String ciphertext) {
         String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        String remainingAlphabet = alphabet;
         char[] keyMap = new char[26];
         Arrays.fill(keyMap, ' ');
 
@@ -75,9 +76,21 @@ public class MonoalphabeticCipher {
             char cipherChar = ciphertext.charAt(i);
 
             if (Character.isLetter(plainChar)) {
-                int index = alphabet.indexOf(plainChar);
-                // TODO: Ensure each letter is mapped only once
-
+                int plainCharIndex=alphabet.indexOf(plainChar);
+                if(keyMap[plainCharIndex]==' '){
+                    keyMap[plainCharIndex] = cipherChar;
+                    remainingAlphabet=alphabet.replace(String.valueOf(plainChar), "");
+            }
+                
+                
+            }
+        }
+        System.out.println(remainingAlphabet);
+        int j = 0;
+        for(int i=0; i<keyMap.length; i++){
+            if(keyMap[i]==' '){
+                keyMap[i] = remainingAlphabet.charAt(j);
+                j++;
             }
         }
 
