@@ -87,14 +87,22 @@ public class DES {
     private static String binaryToHex(String binary) {
         // DONE: Implement this method to convert a binary string to a hexadecimal
         // string.
+
         int length = binary.length();
+        // System.out.println(length);
         int pad = length % 4;
+
         if (pad != 0) {
             binary = "0".repeat(pad) + binary;
         }
-
+        // System.out.println(binary);
         BigInteger bigInt = new BigInteger(binary, 2);
-        return bigInt.toString(16);
+        String res = bigInt.toString(16);
+        if(res.length() < 16 ){
+            int padx = 16 - res.length();
+            res = "0".repeat(padx) + res;
+        }
+        return res;
 
     }
 
@@ -214,7 +222,7 @@ public class DES {
             String row = "" + R.charAt(i) + R.charAt(i + 5);
             int rowIdx = Integer.parseInt(row, 2);
 
-            String col = R.substring(i + 1, i + 4);
+            String col = R.substring(i + 1, i + 5);
             int colIdx = Integer.parseInt(col, 2);
             String res = Integer.toBinaryString(SBOXES[i / 6][rowIdx][colIdx]);
             if (res.length() != 4) {
