@@ -4,7 +4,7 @@ import java.util.*;
 public class ColumnarCipher {
 
     public List<Integer> analyse(String plainText, String cipherText) {
-        // TODO: Analyze the plainText and cipherText to determine the key(s)
+        // DONE: Analyze the plainText and cipherText to determine the key(s)
         int keyLen = getKeyLen( plainText,  cipherText);
         System.out.println(keyLen);
         int rows = plainText.length() / keyLen;
@@ -22,6 +22,9 @@ public class ColumnarCipher {
        for(int j =0; j<keyLen;j++){
         for(int l=0;l<keyLen;l++){
             if(firstRowColumnar[j]== cipher[l]){
+                if(keys.contains(l+1)){
+                    continue;
+                }
                 keys.add(l+1);
                 break;
             }
@@ -46,10 +49,10 @@ public class ColumnarCipher {
             if (plainText.charAt(i) == c1){
                 for (int j = i+1 ; j < plainText.length() ; j++){
                     if(c2 == plainText.charAt(j)){
-                        int keyLen = j;
+                        int keyLen = j-i;
                         return keyLen;
                     }
-                }
+                }   
             }
         }
         return -1;
