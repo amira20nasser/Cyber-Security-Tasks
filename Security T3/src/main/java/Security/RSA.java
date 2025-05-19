@@ -20,6 +20,18 @@ public class RSA {
     }
 
     public int decrypt(int p, int q, int C, int e) {
-        throw new UnsupportedOperationException("Not implemented yet.");
+        // e is public
+        // i need d = e(inverse) mod totient(n)
+        BigInteger pp = BigInteger.valueOf(p);
+        BigInteger qq = BigInteger.valueOf(q);
+        BigInteger CC = BigInteger.valueOf(C);
+        BigInteger ee = BigInteger.valueOf(e);
+
+        BigInteger n = pp.multiply(qq);
+        BigInteger totient = pp.subtract(BigInteger.ONE).multiply(qq.subtract(BigInteger.ONE)); 
+        BigInteger d = ee.modInverse(totient);
+        BigInteger plain = CC.modPow(d, n);
+
+        return plain.intValue();
     }
 }
