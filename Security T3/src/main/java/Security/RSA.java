@@ -29,7 +29,7 @@ public class RSA {
 
         BigInteger n = pp.multiply(qq);
         BigInteger totient = pp.subtract(BigInteger.ONE).multiply(qq.subtract(BigInteger.ONE)); 
-        BigInteger d = ee.modInverse(totient);
+        BigInteger d = ModOperations.modInverse(ee,totient);
         BigInteger plain = CC.modPow(d, n);
 
         return plain.intValue();
