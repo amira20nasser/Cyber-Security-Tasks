@@ -8,11 +8,10 @@ public class ElGamal {
     public List<Long> encrypt(int q, int alpha, int y, int k, int m) {
         BigInteger bigAlpha = BigInteger.valueOf(alpha);
         BigInteger big_q = BigInteger.valueOf(q);
-        BigInteger big_k = BigInteger.valueOf(k);
         BigInteger big_y = BigInteger.valueOf(y);
         BigInteger big_m = BigInteger.valueOf(m);
-        BigInteger c1 = bigAlpha.modPow(big_k, big_q);
-        BigInteger K = big_y.modPow(big_k, big_q);
+        BigInteger c1 = bigAlpha.pow(k).mod(big_q);
+        BigInteger K = big_y.pow(k).mod(big_q);
 
         BigInteger c2 = K.multiply(big_m).mod(big_q);
 
@@ -27,10 +26,9 @@ public class ElGamal {
 
         BigInteger big_c1 = BigInteger.valueOf(c1);
         BigInteger big_c2 = BigInteger.valueOf(c2);
-        BigInteger big_x = BigInteger.valueOf(x);
         BigInteger big_q = BigInteger.valueOf(q);
 
-        BigInteger c1_pow_x_inverse = ModOperations.modInverse(big_c1.modPow(big_x,big_q),big_q);
+        BigInteger c1_pow_x_inverse = ModOperations.modInverse(big_c1.pow(x).mod(big_q),big_q);
         BigInteger m = big_c2.multiply(c1_pow_x_inverse).mod(big_q);
         return m.intValue();
 

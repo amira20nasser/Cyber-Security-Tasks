@@ -9,11 +9,10 @@ public class RSA {
         BigInteger pp = BigInteger.valueOf(p);
         BigInteger qq = BigInteger.valueOf(q);
         BigInteger MM = BigInteger.valueOf(M);
-        BigInteger ee = BigInteger.valueOf(e);
 
         BigInteger n = pp.multiply(qq);
 
-        BigInteger cipher = MM.modPow(ee, n);
+        BigInteger cipher = MM.pow(e).mod(n);
 
         return cipher.intValue();
     
@@ -30,7 +29,7 @@ public class RSA {
         BigInteger n = pp.multiply(qq);
         BigInteger totient = pp.subtract(BigInteger.ONE).multiply(qq.subtract(BigInteger.ONE)); 
         BigInteger d = ModOperations.modInverse(ee,totient);
-        BigInteger plain = CC.modPow(d, n);
+        BigInteger plain = CC.pow(d.intValue()).mod(n);
 
         return plain.intValue();
     }
