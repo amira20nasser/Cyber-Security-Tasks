@@ -24,6 +24,15 @@ public class ElGamal {
     }
 
     public int decrypt(int c1, int c2, int x, int q) {
-        return 0;
+
+        BigInteger big_c1 = BigInteger.valueOf(c1);
+        BigInteger big_c2 = BigInteger.valueOf(c2);
+        BigInteger big_x = BigInteger.valueOf(x);
+        BigInteger big_q = BigInteger.valueOf(q);
+
+        BigInteger c1_pow_x_inverse = ModOperations.modInverse(big_c1.modPow(big_x,big_q),big_q);
+        BigInteger m = big_c2.multiply(c1_pow_x_inverse).mod(big_q);
+        return m.intValue();
+
     }
 }
