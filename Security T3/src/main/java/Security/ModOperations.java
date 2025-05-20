@@ -26,7 +26,11 @@ public class ModOperations
     }
     public static BigInteger modInverse(BigInteger number, BigInteger mod)  {
         Integer inverse = extendedEucledian(mod.intValue(), number.intValue()).get("inverse");
-        return BigInteger.valueOf(inverse).mod(mod); // to ensure it is positive
-
+        // return BigInteger.valueOf(inverse).mod(mod); // to ensure it is positive
+        // or, doing it the hard way:
+        while(inverse < 0){
+            inverse+=mod.intValue();
+        }
+        return BigInteger.valueOf(inverse);
     }
 }
